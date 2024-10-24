@@ -4,9 +4,20 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class ProfileController extends Controller
+class UserController extends Controller
 {
     //
+    public function create(){
+        return view('createUser');
+    }
+    public function store(Request $request){
+        $data = [
+                'nama' => $request->input('nama'),
+                'kelas' => $request->input('kelas'),
+                'npm' => $request->input('npm')
+        ];
+        return view('profile', $data);
+    }
     public function profile($nama ="", $kelas = "", $npm = ""){
         if ($nama == "" && $kelas == "" && $npm == ""){
             $data = [
