@@ -38,7 +38,7 @@
                     </svg>
                 </div>
 
-                <h1 class="flex mt-6 justify-center text-xl font-semibold text-gray dark:text-white">Berli Anta Atrizki</h1>
+                <h1 class="flex mt-6 justify-center text-xl font-semibold text-gray dark:text-white">Besrli Anta Atrizki</h1>
 
                 <div class="mt-16">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
