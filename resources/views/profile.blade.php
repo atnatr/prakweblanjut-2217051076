@@ -15,11 +15,11 @@
             <div class="bg-gray-100 p-4 mb-4 text-center rounded-lg">
                 <p class="font-semibold text-lg"><?= $nama ?></p>
             </div>
-            <div class="bg-gray-100 p-4 mb-4 text-center rounded-lg">
-                <p class="font-semibold text-lg"><?= $kelas ?></p>
-            </div>
             <div class="bg-gray-100 p-4 text-center rounded-lg">
                 <p class="font-semibold text-lg"><?= $npm ?></p>
+            </div>
+            <div class="bg-gray-100 p-4 mb-4 mt-4 text-center rounded-lg">
+                <p class="font-semibold text-lg"><?= $nama_kelas ?? 'Kelas tidak ditemukan'?></p>
             </div>
         </div>
     </div>
