@@ -24,8 +24,13 @@
                 </div>
 
                 <div class="mb-4">
-                    <label for="kelas" class="block text-gray-700 font-semibold mb-2">Kelas</label>
-                    <input type="text" id="kelas" name="kelas" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring focus:ring-blue-200 focus:border-blue-500" placeholder="Masukkan Kelas" required>
+                    <label for="kelas_id" class="block text-gray-700 font-semibold mb-2">Kelas</label>
+                    <select id="kelas_id" name="kelas_id" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring focus:ring-blue-200 focus:border-blue-500" 
+                        required>
+                        @foreach ($kelas as $kelasItem)
+                        <option value="{{$kelasItem->id}}">{{$kelasItem->nama_kelas}}</option>
+                        @endforeach
+                    </select>
                 </div>
 
                 <button type="submit" class="w-full bg-blue-600 text-white font-bold py-2 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-200">Submit</button>
