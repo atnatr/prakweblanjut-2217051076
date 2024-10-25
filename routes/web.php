@@ -17,6 +17,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/profile', [UserController::class, 'profile']);
-Route::get('/profile/{nama}/{kelas}/{npm}', [UserController::class, 'profile']);
+Route::get('/profile/{nama}/{kelas}/{npm}/{jurusan}', [UserController::class, 'profile']);
 Route::get('/user/create',[UserController::class,'create']);
 Route::post('/user/store', [UserController::class, 'store']) -> name('user.store');

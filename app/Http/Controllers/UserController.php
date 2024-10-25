@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Kelas;
 use App\Models\UserModel;
+use App\Models\Fakultas;
+use App\Models\JurusanModel;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -11,7 +13,8 @@ class UserController extends Controller
     //
     public function create(){
         return view('createUser', [
-            'kelas' => Kelas::all()
+            'kelas' => Kelas::all(),
+            'jurusan' => JurusanModel::all()
         ]);
     }
 
@@ -27,37 +30,42 @@ class UserController extends Controller
         $validatedData = $request->validate([
             'nama' => 'required|string|max:255',
             'npm' => 'required|string|max:255',
-            'kelas_id' => 'required|exists:kelas,id'
+            'kelas_id' => 'required|exists:kelas,id',
+            'jurusan_id' => 'required|exists:jurusan,id'
         ]);
 
         $user = UserModel::create([
             'nama' => $validatedData['nama'],
             'npm' => $validatedData['npm'],
-            'kelas_id' => $validatedData['kelas_id']
+            'kelas_id' => $validatedData['kelas_id'],
+            'jurusan_id' => $validatedData['jurusan_id']
         ]);
 
-        $user -> load('kelas');
-        
+        $user -> load('kelas','jurusan');
+        // dd($user);
         return view('profile', [
             'nama' => $user->nama,
             'npm' => $user->npm,
-            'nama_kelas' => $user->kelas->nama_kelas ?? 'Kelas tidak ditemukan'
+            'nama_kelas' => $user->kelas->nama_kelas ?? 'Kelas tidak ditemukan',
+            'nama_jurusan' => $user->jurusan->nama_jurusan ?? 'Jurusan tidak ditemukan'
         ]);
     }
 
-    public function profile($nama ="", $kelas = "", $npm = ""){
-        if ($nama == "" && $kelas == "" && $npm == ""){
+    public function profile($nama ="", $kelas = "", $npm = "", $jurusan = ""){
+        if ($nama == "" && $kelas == "" && $npm == "" && $jurusan = ""){
             $data = [
                 'nama' => 'Berli Anta Atrizki',
                 'kelas' => 'A',
-                'npm' => '221705176'
+                'npm' => '221705176',
+                'jurusan' => 'Ilmu Komputer'
             ];
         }
         else {
             $data = [
                 'nama' => $nama,
                 'kelas' => $kelas,
-                'npm' => $npm
+                'npm' => $npm,
+                'jurusan' => $jurusan
             ];
         }
         return view('profile', $data);

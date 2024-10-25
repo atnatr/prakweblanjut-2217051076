@@ -21,6 +21,9 @@
             <div class="bg-gray-100 p-4 mb-4 mt-4 text-center rounded-lg">
                 <p class="font-semibold text-lg"><?= $nama_kelas ?? 'Kelas tidak ditemukan'?></p>
             </div>
+            <div class="bg-gray-100 p-4 mb-4 mt-4 text-center rounded-lg">
+                <p class="font-semibold text-lg"><?= $nama_jurusan ?? 'Jurusan tidak ditemukan'?></p>
+            </div>
         </div>
     </div>
 </body>

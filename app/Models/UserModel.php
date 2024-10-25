@@ -15,4 +15,8 @@ class UserModel extends Model
     public function kelas(){
         return $this->belongsTo(Kelas::class, 'kelas_id');
     }
+
+    public function jurusan(){
+        return $this->belongsTo(JurusanModel::class, 'jurusan_id');
+    }
 }

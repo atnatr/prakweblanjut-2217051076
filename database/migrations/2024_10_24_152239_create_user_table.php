@@ -11,13 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('user', function (Blueprint $table) {
-            $table->id();
-            $table->string('nama');
-            $table->string('npm');
-            $table->foreignId('kelas_id')->constrained('kelas');
-            $table->timestamps();
-        });
+        if(!Schema::hasTable('user')) {
+            Schema::create('user', function (Blueprint $table) {
+                $table->id();
+                $table->string('nama');
+                $table->string('npm');
+                $table->foreignId('kelas_id')->constrained('kelas');
+                $table->timestamps();
+            });
+        }
     }
 
     /**
