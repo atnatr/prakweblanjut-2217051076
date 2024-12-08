@@ -8,8 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Kelas extends Model
 {
     use HasFactory;
+    protected $table = 'kelas';
     protected $guarded = ['id'];
 
+    public function getKelas(){
+        return $this->all();
+    }
+    
     public function user(){
         return $this->hasMany(UserModel::class, 'kelas_id');
     }

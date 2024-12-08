@@ -9,10 +9,33 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
     //
+    public $userModel;
+    public $kelasModel;
+
+    public function __construct(){
+        $this->userModel = new UserModel();
+        $this->kelasModel = new Kelas();
+    }
+
+    public function index(){
+        $data = [
+            'title' => 'List User',
+            'users' => $this->userModel->getUser()
+        ];
+        
+        return view('listUser', $data);
+    }
+    
     public function create(){
-        return view('createUser', [
-            'kelas' => Kelas::all()
-        ]);
+
+        $kelas = $this->kelasModel->getKelas();
+
+        $data = [
+            'kelas' => $kelas,
+            'title' => 'Create User',
+        ];
+        
+        return view('createUser', $data);
     }
 
     // public function store(Request $request){
@@ -39,27 +62,46 @@ class UserController extends Controller
         $user -> load('kelas');
         
         return view('profile', [
+            'title' => 'Profile',
             'nama' => $user->nama,
             'npm' => $user->npm,
-            'nama_kelas' => $user->kelas->nama_kelas ?? 'Kelas tidak ditemukan'
+            'kelas' => $user->kelas->nama_kelas ?? 'Kelas tidak ditemukan'
         ]);
     }
 
-    public function profile($nama ="", $kelas = "", $npm = ""){
-        if ($nama == "" && $kelas == "" && $npm == ""){
-            $data = [
-                'nama' => 'Berli Anta Atrizki',
-                'kelas' => 'A',
-                'npm' => '221705176'
-            ];
-        }
-        else {
-            $data = [
-                'nama' => $nama,
-                'kelas' => $kelas,
-                'npm' => $npm
-            ];
-        }
+    // public function profile($nama ="", $kelas = "", $npm = ""){
+    //     if ($nama == "" && $kelas == "" && $npm == ""){
+    //         $data = [
+    //             'title' => 'Profile',
+    //             'nama' => 'Berli Anta Atrizki',
+    //             'kelas' => 'A',
+    //             'npm' => '221705176'
+    //         ];
+    //     }
+    //     else {
+    //         $data = [
+    //             'title' => 'Profile',
+    //             'nama' => $nama,
+    //             'kelas' => $kelas,
+    //             'npm' => $npm
+    //         ];
+    //     }
+    //     return view('profile', $data);
+    // }
+    public function profile(Request $request){
+        $nama = $request->input('nama');
+        $kelas_id = $request->input('kelas_id');
+        $npm = $request->input('npm');
+
+        $kelas = Kelas::find($kelas_id);
+
+        $data = [
+            'title' => 'Profile',
+            'nama' => $nama,
+            'kelas' => $kelas ? $kelas->nama_kelas : 'Kelas tidak ditemukan',
+            'npm' => $npm
+        ];
+
         return view('profile', $data);
     }
 }
