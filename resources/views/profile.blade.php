@@ -7,7 +7,7 @@
     </div>
     <div class="w-full max-w-xs">
         <div class="bg-gray-100 p-4 mb-4 text-center rounded-lg">
-            <p class="font-semibold text-lg">{{ $user->nama ?? 'Nigga'}}</p>
+            <p class="font-semibold text-lg">{{ $user->nama }}</p>
         </div>
         <div class="bg-gray-100 p-4 text-center rounded-lg">
             <p class="font-semibold text-lg">{{ $user->npm }}</p>
