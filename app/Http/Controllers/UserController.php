@@ -21,6 +21,7 @@ class UserController extends Controller
         $data = [
             'title' => 'List User',
             'users' => $this->userModel->getUsers()
+            'users' => $this->userModel->getUser()
         ];
         
         return view('listUser', $data);
@@ -78,6 +79,12 @@ class UserController extends Controller
         // ]);
         
         return redirect()->route('user.profile', ['id' => $user->id]);
+        return view('profile', [
+            'title' => 'Profile',
+            'nama' => $user->nama,
+            'npm' => $user->npm,
+            'kelas' => $user->kelas->nama_kelas ?? 'Kelas tidak ditemukan'
+        ]);
     }
 
     // public function profile($nama ="", $kelas = "", $npm = ""){
@@ -105,6 +112,19 @@ class UserController extends Controller
         $data = [
             'title' => 'Profile',
             'user' => $user
+          
+    public function profile(Request $request){
+        $nama = $request->input('nama');
+        $kelas_id = $request->input('kelas_id');
+        $npm = $request->input('npm');
+
+        $kelas = Kelas::find($kelas_id);
+
+        $data = [
+            'title' => 'Profile',
+            'nama' => $nama,
+            'kelas' => $kelas ? $kelas->nama_kelas : 'Kelas tidak ditemukan',
+            'npm' => $npm
         ];
 
         return view('profile', $data);

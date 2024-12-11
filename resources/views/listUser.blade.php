@@ -6,6 +6,7 @@
     class="inline-block px-6 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 transition duration-150 mb-2">
     Tambah User
     </a>
+    <h1 class="text-2xl font-bold text-gray-800 mb-4">{{ $title }}</h1>
 
     <div class="overflow-x-auto">
         <table class="min-w-full bg-white border border-gray-200 rounded-lg">
@@ -36,6 +37,13 @@
                             <a href="{{ route('user.profile', $user->id) }}" 
                                class="text-blue-500 hover:text-blue-700 font-semibold">Lihat</a>
 
+                        <form action="{{ url('/profile') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="nama" value="{{ $user['nama'] }}">
+                            <input type="hidden" name="kelas_id" value="{{ $user['kelas_id'] }}">
+                            <input type="hidden" name="npm" value="{{ $user['npm'] }}">
+                            <button type="submit" class="text-blue-500 hover:text-blue-700 font-semibold">Lihat</button>
+                        </form>
 
                             <button class="text-red-500 hover:text-red-700 font-semibold">Hapus</button>
                         </div>

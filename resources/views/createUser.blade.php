@@ -4,8 +4,9 @@
 <div class="flex justify-center items-center h-screen">
     <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
         <h2 class="text-2xl font-semibold text-center text-blue-600 mb-6">Create User</h2>
-
+        
         <form action="{{ route('user.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('user.store') }}" method="POST">
             @csrf
             <div class="mb-4">
                 <label for="nama" class="block text-gray-700 font-semibold mb-2">Nama</label>
