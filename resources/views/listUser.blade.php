@@ -12,6 +12,7 @@
             <thead class="bg-gray-100">
                 <tr>
                     <th class="px-6 py-3 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider border-b">ID</th>
+                    <th class="px-6 py-3 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider border-b">Foto</th>
                     <th class="px-6 py-3 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider border-b">Nama</th>
                     <th class="px-6 py-3 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider border-b">NPM</th>
                     <th class="px-6 py-3 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider border-b">Kelas</th>
