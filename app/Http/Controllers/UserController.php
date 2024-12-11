@@ -20,7 +20,7 @@ class UserController extends Controller
     public function index(){
         $data = [
             'title' => 'List User',
-            'users' => $this->userModel->getUser()
+            'users' => $this->userModel->getUsers()
         ];
         
         return view('listUser', $data);
@@ -50,23 +50,34 @@ class UserController extends Controller
         $validatedData = $request->validate([
             'nama' => 'required|string|max:255',
             'npm' => 'required|string|max:255',
-            'kelas_id' => 'required|exists:kelas,id'
+            'kelas_id' => 'required|exists:kelas,id',
+            'foto' => 'nullable|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
         ]);
 
+        if ($request->hasFile('foto')) {
+            $foto = $request->file('foto');
+            $fotoPath = $foto->move('upload/img', uniqid() . '.' . $foto->getClientOriginalExtension());
+        } else {
+            $fotoPath = null;
+        }
+        
         $user = UserModel::create([
             'nama' => $validatedData['nama'],
             'npm' => $validatedData['npm'],
-            'kelas_id' => $validatedData['kelas_id']
-        ]);
+            'kelas_id' => $validatedData['kelas_id'],
+            'foto' => $fotoPath
+        ]);        
 
-        $user -> load('kelas');
+        // $user -> load('kelas');
         
-        return view('profile', [
-            'title' => 'Profile',
-            'nama' => $user->nama,
-            'npm' => $user->npm,
-            'kelas' => $user->kelas->nama_kelas ?? 'Kelas tidak ditemukan'
-        ]);
+        // return view('profile', [
+        //     'title' => 'Profile',
+        //     'nama' => $user->nama,
+        //     'npm' => $user->npm,
+        //     'kelas' => $user->kelas->nama_kelas ?? 'Kelas tidak ditemukan'
+        // ]);
+        
+        return redirect()->route('user.profile', ['id' => $user->id]);
     }
 
     // public function profile($nama ="", $kelas = "", $npm = ""){
@@ -88,20 +99,42 @@ class UserController extends Controller
     //     }
     //     return view('profile', $data);
     // }
-    public function profile(Request $request){
-        $nama = $request->input('nama');
-        $kelas_id = $request->input('kelas_id');
-        $npm = $request->input('npm');
-
-        $kelas = Kelas::find($kelas_id);
+    public function show($id){
+        $user = $this->userModel->getUser($id);
 
         $data = [
             'title' => 'Profile',
-            'nama' => $nama,
-            'kelas' => $kelas ? $kelas->nama_kelas : 'Kelas tidak ditemukan',
-            'npm' => $npm
+            'user' => $user
         ];
 
         return view('profile', $data);
     }
+    // public function profile(Request $request){
+    //     $nama = $request->input('nama');
+    //     $kelas_id = $request->input('kelas_id');
+    //     $npm = $request->input('npm');
+    //     $foto = $request->input('foto');
+
+    //     $kelas = Kelas::find($kelas_id);
+
+    //     $data = [
+    //         'title' => 'Profile',
+    //         'nama' => $nama,
+    //         'kelas' => $kelas ? $kelas->nama_kelas : 'Kelas tidak ditemukan',
+    //         'npm' => $npm,
+    //         'foto' => $foto
+    //     ];
+
+    //     return view('profile', $data);
+    // }
+
+    public function profile($id) {
+        $user = UserModel::with('kelas')->findOrFail($id);
+        
+        return view('profile', [
+            'title' => 'Profile',
+            'user' => $user
+        ]);
+    }
+    
 }

@@ -2,7 +2,10 @@
 
 @section('content')
 <div class="container mx-auto mt-8">
-    <h1 class="text-2xl font-bold text-gray-800 mb-4">{{ $title }}</h1>
+    <a href="{{ route('user.create') }}" 
+    class="inline-block px-6 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 transition duration-150 mb-2">
+    Tambah User
+    </a>
 
     <div class="overflow-x-auto">
         <table class="min-w-full bg-white border border-gray-200 rounded-lg">
@@ -20,18 +23,19 @@
                 <tr class="hover:bg-gray-50">
                     <td class="hidden">{{ $user['kelas_id'] }}</td>
                     <td class="px-6 py-4 text-sm text-gray-800 border-b">{{ $user['id'] }}</td>
+                    <td class="px-6 py-4 text-sm text-gray-800 border-b">
+                        <img src="{{ $user->foto ? asset($user->foto) : asset('walawe/img/suisei.png') }}" 
+                             alt="User Foto" 
+                             class="w-12 h-12 rounded-full object-cover">
+                    </td>
                     <td class="px-6 py-4 text-sm text-gray-800 border-b">{{ $user['nama'] }}</td>
                     <td class="px-6 py-4 text-sm text-gray-800 border-b">{{ $user['npm'] }}</td>
                     <td class="px-6 py-4 text-sm text-gray-800 border-b">{{ $user['nama_kelas'] }}</td>
                     <td class="px-6 py-4 text-center border-b">
                         <div class="flex justify-center space-x-4">
-                        <form action="{{ url('/profile') }}" method="POST">
-                            @csrf
-                            <input type="hidden" name="nama" value="{{ $user['nama'] }}">
-                            <input type="hidden" name="kelas_id" value="{{ $user['kelas_id'] }}">
-                            <input type="hidden" name="npm" value="{{ $user['npm'] }}">
-                            <button type="submit" class="text-blue-500 hover:text-blue-700 font-semibold">Lihat</button>
-                        </form>
+                            <a href="{{ route('user.profile', $user->id) }}" 
+                               class="text-blue-500 hover:text-blue-700 font-semibold">Lihat</a>
+
 
                             <button class="text-red-500 hover:text-red-700 font-semibold">Hapus</button>
                         </div>
