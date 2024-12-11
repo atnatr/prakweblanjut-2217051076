@@ -137,4 +137,34 @@ class UserController extends Controller
         ]);
     }
     
+    public function edit($id){
+        $user = UserModel::with('kelas')->findOrFail($id);
+        $title = 'Edit User';
+        $kelas = Kelas::all();
+        return view('editUser', compact('user','kelas','title'));
+    }
+
+    public function update(Request $request,$id){
+        $user = UserModel::findOrFail($id);
+
+        $user->nama = $request->nama;
+        $user->npm = $request->npm;
+        $user->kelas_id = $request->kelas_id;
+
+        if($request->hasFile('foto')){
+            $filename = time().'.'.$request->foto->extension();
+            $request->foto->move(public_path('uploads'),$filename);
+            $user->foto = 'uploads/'.$filename;
+        }
+
+        $user->save();
+
+        return redirect()->route('user.list')->with('Success', 'User Updated Successfully');
+    }
+
+    public function destroy($id){
+        $user = UserModel::findOrFail($id);
+        $user->delete();
+        return redirect()->route('user.list')->with('Success', 'User telah dihapus! >:(');
+    }
 }

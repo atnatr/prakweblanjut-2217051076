@@ -36,9 +36,16 @@
                         <div class="flex justify-center space-x-4">
                             <a href="{{ route('user.profile', $user->id) }}" 
                                class="text-blue-500 hover:text-blue-700 font-semibold">Lihat</a>
-
-
-                            <button class="text-red-500 hover:text-red-700 font-semibold">Hapus</button>
+                               
+                            <a href="{{ route('user.edit', $user->id) }}" 
+                               class="text-blue-500 hover:text-blue-700 font-semibold">Edit</a>
+                            
+                            <form action="{{ route('user.destroy', $user->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button class="text-red-500 hover:text-red-700 font-semibold"
+                                onClick="return confirm('Apakah Kamu Ingin Bermusuhan Dengan nana?')">Hapus</button>
+                            </form>
                         </div>
                     </td>
                 </tr>
